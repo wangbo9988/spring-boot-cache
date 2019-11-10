@@ -1,0 +1,18 @@
+spring:
+  #  配置数据源信息
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.31.111:3308/wangbo
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    #    开启驼峰命名法
+    map-underscore-to-camel-case: true
+
+# 打印mapper层日志，检测是使用缓存还是走数据库
+logging:
+  level:
+    com.cn.demo.mapper:
+      debug
