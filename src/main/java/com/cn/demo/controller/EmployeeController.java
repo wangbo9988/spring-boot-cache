@@ -34,4 +34,9 @@ public class EmployeeController {
         return employeeService.selectEmpById(id);
     }
 
+    @GetMapping("/emp1/upd")
+    public int updateEmp(Employees employees) {
+        return employeeService.updateEmp(employees);
+    }
+
 }

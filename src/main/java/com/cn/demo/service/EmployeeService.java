@@ -3,6 +3,7 @@ package com.cn.demo.service;
 import com.cn.demo.entity.Employees;
 import com.cn.demo.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +30,16 @@ public class EmployeeService {
      *                  condition：指定符合条件的情况下才缓存
      *    编写SpEL
      **/
-    @Cacheable(cacheNames = "emp", key = "#root.args[0]", condition = "#id>0", unless = "#result==null")
+    @Cacheable(cacheNames = "emp", keyGenerator = "MyKeyGenerator", unless = "#result==null")
     public Employees selectEmpById(Integer id) {
         System.out.println("查询");
         return employeeMapper.getEmpById(id);
     }
 
+    // 即调用方法，又更新缓存
+    @CachePut(cacheNames = "emp")
+    public int updateEmp(Employees employees) {
+        System.out.println("员工更新：" + employees);
+        return employeeMapper.updateEmp(employees);
+    }
 }
