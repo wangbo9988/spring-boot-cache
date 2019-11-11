@@ -5,6 +5,9 @@ spring:
     password: 123456
     url: jdbc:mysql://192.168.31.111:3308/wangbo
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 # 打印mapper层日志，检测是使用缓存还是走数据库
 logging:

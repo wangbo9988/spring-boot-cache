@@ -35,6 +35,11 @@ public class EmployeeController {
         return employeeService.selectEmpById(id);
     }
 
+    @GetMapping("/emp1ByName/{name}")
+    public Employees selectEmpByName(@PathVariable("name") String name) {
+        return employeeService.getEmpByName(name);
+    }
+
     @PostMapping("/emp1/upd")
     public Employees updateEmp(Employees employees) {
         return employeeService.updateEmp(employees);

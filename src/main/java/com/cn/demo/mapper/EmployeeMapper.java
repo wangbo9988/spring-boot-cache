@@ -23,4 +23,7 @@ public interface EmployeeMapper {
 
     @Insert("INSERT INTO Employees(id,name,sex,age,dp_id,annual_salary) VALUES(#{id},#{name},#{sex},#{age},#{ap_id},#{annual_salary})")
     public Employees insertEmp(Employees employees);
+
+    @Select("SELECT * FROM Employees WHERE name=#{name}")
+    public Employees getEmpByName(String name);
 }

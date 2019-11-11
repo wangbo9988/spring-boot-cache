@@ -1,12 +1,14 @@
 package com.cn.demo.entity;
 
+import java.io.Serializable;
+
 /**
  * @Description 员工信息表
  * @Author Wangbo
  * @Date 2019/11/03
  * @Version V1.0
  **/
-public class Employees {
+public class Employees implements Serializable {
 
     private int id; //  员工编号
     private String name; // 员工姓名

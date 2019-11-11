@@ -5,6 +5,7 @@ import com.cn.demo.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 /**
@@ -44,5 +45,19 @@ public class EmployeeService {
     public Employees updateEmp(Employees employees) {
         System.out.println("员工更新：" + employees);
         return employees;
+    }
+
+    // Cacheable、CachePut、CacheEvit三个注解的组合，适用于比较复杂的情况
+    @Caching(
+            cacheable = {@Cacheable(value = "emp", key = "#name", unless = "#result==null")
+            },
+            put = {
+                    @CachePut(value = "emp", key = "#result.id", unless = "#result==null")
+            }
+    )
+    public Employees getEmpByName(String name) {
+        Employees em = employeeMapper.getEmpByName(name);
+        System.out.println(em);
+        return em;
     }
 }
