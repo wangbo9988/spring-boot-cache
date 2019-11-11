@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -34,8 +35,8 @@ public class EmployeeController {
         return employeeService.selectEmpById(id);
     }
 
-    @GetMapping("/emp1/upd")
-    public int updateEmp(Employees employees) {
+    @PostMapping("/emp1/upd")
+    public Employees updateEmp(Employees employees) {
         return employeeService.updateEmp(employees);
     }
 

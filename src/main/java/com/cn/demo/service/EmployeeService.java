@@ -30,16 +30,19 @@ public class EmployeeService {
      *                  condition：指定符合条件的情况下才缓存
      *    编写SpEL
      **/
-    @Cacheable(cacheNames = "emp", keyGenerator = "MyKeyGenerator", unless = "#result==null")
+
+    // 获取员工信息
+    @Cacheable(cacheNames = "emp", key = "#a0", unless = "#result==null")
     public Employees selectEmpById(Integer id) {
         System.out.println("查询");
         return employeeMapper.getEmpById(id);
     }
 
     // 即调用方法，又更新缓存
-    @CachePut(cacheNames = "emp")
-    public int updateEmp(Employees employees) {
+    // 更新员工信息
+    @CachePut(cacheNames = "emp", key = "#employees.id")
+    public Employees updateEmp(Employees employees) {
         System.out.println("员工更新：" + employees);
-        return employeeMapper.updateEmp(employees);
+        return employees;
     }
 }
