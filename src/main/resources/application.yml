@@ -3,11 +3,16 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.31.111:3308/wangbo
+    url: jdbc:mysql://127.0.0.1:3308/wangbo
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 127.0.0.1
-    port: 6379
+    host: 127.0.0.1 # 设置Redis ip
+    port: 6379  # 设置Redis端口号
+  cache:
+    redis:
+      time-to-live: 600000  # 设置缓存生命周期为10分钟
+
+
 
 # 打印mapper层日志，检测是使用缓存还是走数据库
 logging:
