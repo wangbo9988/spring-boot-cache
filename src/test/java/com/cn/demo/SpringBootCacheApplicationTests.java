@@ -3,6 +3,7 @@ package com.cn.demo;
 import com.cn.demo.entity.Employees;
 import com.cn.demo.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -68,4 +69,27 @@ class SpringBootCacheApplicationTests {
 
     }
 
+    // 使用AmqpAdmin组件来实现RabbitMQ的Queue、Excahnge、Binding的创建和删除
+    @Autowired
+    AmqpAdmin amqpAdmin;
+
+    @Test
+    public void createExcahnge() {
+        //  创建Direct型的 Exchange 以及设置它的参数
+        amqpAdmin.declareExchange(new DirectExchange("test.direct", true, true));
+        //  创建Fanout型的 Exchange 以及设置它的参数
+        amqpAdmin.declareExchange(new FanoutExchange("test.fanout", true, true));
+        //  创建Topic型的 Exchange 以及设置它的参数
+        amqpAdmin.declareExchange(new TopicExchange("test.topuc", true, true));
+
+        //  创建队列Queue
+        amqpAdmin.declareQueue(new Queue("queue", true));
+        amqpAdmin.declareQueue(new Queue("queue.bo"));
+        amqpAdmin.declareQueue(new Queue("queue.test"));
+        amqpAdmin.declareQueue(new Queue("test.bo"));
+
+        //  设置绑定关系
+        //  destination：目的地-绑定目标，Binding.DestinationType：绑定对象，exchange：需要绑定的交换机，routitngkey：路由键，arguments：其他参数（map类型）
+        amqpAdmin.declareBinding(new Binding("queue", Binding.DestinationType.QUEUE, "test.direct", "queue", null));
+    }
 }
