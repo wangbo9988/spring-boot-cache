@@ -22,6 +22,8 @@ import java.time.Duration;
 public class RedisConfig {
     //过期时间1天
 //    private Duration timeToLive = Duration.ofDays(1);
+//    private Duration timeToLive = Duration.ofMinutes(2);
+
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         //默认1
